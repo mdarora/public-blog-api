@@ -7,6 +7,9 @@ app.get("/", (req, res) => {
     res.json({message: "home route of server"});
 });
 
+app.use(express.json());
+app.use("/api", require('./routes/auth'));
+
 
 require("./db/dbConfig");
 app.listen(process.env.PORT, () =>{
