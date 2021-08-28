@@ -34,5 +34,30 @@ router.post("/register", async (req, res)=>{
     }
 });
 
+router.post("/login", async (req, res) => {
+    const {username, password} = req.body;
+
+    if (!username || !password){
+        return res.json({error: "All fields are required!"});
+    }
+
+    try {
+        const findByUsername = await User.find({username});
+        if (findByUsername.length === 0){
+            return res.json({error: "Invalid details"});
+        }
+
+        const matchHash = await bcrypt.compare(password, findByUsername[0].password);
+        if(!matchHash){
+            return res.json({error: "Invalid details"});
+        }
+
+        return res.json({message: "User loggedin"});
+
+    } catch (error) {
+        console.log("Catched on login: ", error);
+        return res.json({error: "Something went wrong!"});
+    }
+});
 
 module.exports = router;
