@@ -2,9 +2,10 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+const logoutAuth = require('../middleware/logoutAuth');
 const User = require('../db/models/user');
 
-router.post("/register", async (req, res)=>{
+router.post("/register", logoutAuth, async (req, res)=>{
     const {name, username, password, cpassword} = req.body;
 
     if (!name || !username || !password || !cpassword){
@@ -35,7 +36,7 @@ router.post("/register", async (req, res)=>{
     }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login",  logoutAuth, async (req, res) => {
     const {username, password} = req.body;
 
     if (!username || !password){
