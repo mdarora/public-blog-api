@@ -10,6 +10,8 @@ router.post("/register", async (req, res)=>{
         return res.json({error: "All fields are required!"});
     } else if (password !== cpassword){
         return res.json({error: "Both passwords must be same!"});
+    } else if (username.includes(" ") || username.includes("@")){
+        return res.json({error: "Username must not contain spaces and @ symbol !"});
     }
 
     try {
