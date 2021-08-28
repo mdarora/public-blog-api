@@ -6,7 +6,7 @@ const User = require('../db/models/user');
 router.post("/register", async (req, res)=>{
     const {name, username, password, cpassword} = req.body;
 
-    if (!name, !username, !password, !cpassword){
+    if (!name || !username || !password || !cpassword){
         return res.json({error: "All fields are required!"});
     } else if (password !== cpassword){
         return res.json({error: "Both passwords must be same!"});
@@ -33,5 +33,6 @@ router.post("/register", async (req, res)=>{
         return res.json({error: "Something went wrong!"})
     }
 });
+
 
 module.exports = router;
