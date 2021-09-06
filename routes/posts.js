@@ -35,5 +35,17 @@ router.post("/add-post", loginAuth, async (req, res) => {
     }
 });
 
+router.get("/posts", loginAuth, async (req, res)=>{
+    try {
+        const posts = await Post.find({}).sort({updatedAt: -1}).limit(10);
+        if(posts.length === 0){
+            return res.json({error: "No post found"});
+        }
+        return res.json({posts});
+    } catch (error) {
+        console.log("Chatched on posts route : ",error);
+        return res.json({error: "Something went wrong!"});
+    }
+});
 
 module.exports = router;
