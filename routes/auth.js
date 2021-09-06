@@ -54,7 +54,7 @@ router.post("/login",  logoutAuth, async (req, res) => {
             return res.json({error: "Invalid details"});
         }
 
-        const token = jwt.sign({id: findByUsername[0]._id, username: findByUsername[0].username}, process.env.SECRET_KEY);
+        const token = jwt.sign({id: findByUsername[0]._id, username: findByUsername[0].username, name: findByUsername[0].name}, process.env.SECRET_KEY);
 
         res.cookie("token", token);
         return res.json({message: "User loggedin"});
