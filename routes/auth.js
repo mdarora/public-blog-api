@@ -13,7 +13,7 @@ router.post("/register", logoutAuth, async (req, res)=>{
     } else if (password !== cpassword){
         return res.json({error: "Both passwords must be same!"});
     } else if (username.includes(" ") || username.includes("@")){
-        return res.json({error: "Username must not contain spaces and @ symbol !"});
+        return res.json({error: "Username must not contain spaces and @ symbol!"});
     }
 
     try {
@@ -28,7 +28,7 @@ router.post("/register", logoutAuth, async (req, res)=>{
             password: hashedpass
         });
         await newUser.save();
-        return res.json({message: "Successfully registered", newUser});
+        return res.json({message: "Successfully registered."});
 
     } catch (error) {
         console.log("Catched on register: ", error);
