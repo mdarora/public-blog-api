@@ -46,18 +46,18 @@ router.post("/login",  logoutAuth, async (req, res) => {
     try {
         const findByUsername = await User.find({username});
         if (findByUsername.length === 0){
-            return res.json({error: "Invalid details"});
+            return res.json({error: "Invalid details."});
         }
 
         const matchHash = await bcrypt.compare(password, findByUsername[0].password);
         if(!matchHash){
-            return res.json({error: "Invalid details"});
+            return res.json({error: "Invalid details."});
         }
 
         const token = jwt.sign({id: findByUsername[0]._id, username: findByUsername[0].username, name: findByUsername[0].name}, process.env.SECRET_KEY);
 
         res.cookie("token", token);
-        return res.json({message: "User loggedin"});
+        return res.json({message: "User loggedin."});
 
     } catch (error) {
         console.log("Catched on login: ", error);

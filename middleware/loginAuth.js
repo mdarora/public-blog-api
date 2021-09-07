@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const loginAuth = (req, res, next) => {
     const token = req.cookies.token;
     if (!token) {
-        return res.json({error: "Login first"});
+        return res.json({error: "Login first."});
     }
     try {
         const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
@@ -13,7 +13,7 @@ const loginAuth = (req, res, next) => {
         next();
     } catch (error) {
         console.log("Catched at loginAuth: ", error);
-        res.json({error: "Login first"});
+        res.json({error: "Login first."});
     }
 }
 
