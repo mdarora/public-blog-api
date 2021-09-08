@@ -30,7 +30,7 @@ router.post("/add-post", loginAuth, async (req, res) => {
         return res.json({message: "Post added."});
         
     } catch (error) {
-        console.log("Chatched on add-post route : ",error);
+        console.log("Catched on add-post route : ",error);
         return res.json({error: "Something went wrong!"});
     }
 });
@@ -43,7 +43,53 @@ router.get("/posts", async (req, res)=>{
         }
         return res.json({posts});
     } catch (error) {
-        console.log("Chatched on posts route : ",error);
+        console.log("Catched on posts route : ",error);
+        return res.json({error: "Something went wrong!"});
+    }
+});
+
+router.get("/post/:slug", async (req, res) => {
+    try {
+        const post = await Post.findOne({slug: req.params.slug});
+        if (!post){
+            return res.json({error: "Invalid request."});
+        }
+        console.log(post);
+
+        return res.json({post});
+        
+    } catch (error) {
+        console.log("Catched on post/:slug route : ",error);
+        return res.json({error: "Something went wrong!"});
+    }
+});
+
+router.get("/profile/:username", async (req, res)=>{
+    try {
+        const posts = await Post.find({"postedBy.username": req.params.username}).sort({createdAt: -1});
+        if (posts.length === 0){
+            return res.json({error: "No post found."});
+        }
+
+        return res.json({posts});
+        
+    } catch (error) {
+        console.log("Catched on post/:slug route : ",error);
+        return res.json({error: "Something went wrong!"});
+    }
+});
+
+router.get("/my-posts", loginAuth, async (req, res)=>{
+    try {
+        const posts = await Post.find({"postedBy.id": req.id}).sort({createdAt: -1});
+        if (posts.length === 0){
+            return res.json({error: "No post found."});
+        }
+
+        return res.json({posts});
+        
+    } catch (error) {
+        console.log("Catched on post/:slug route : ",error);
         return res.json({error: "Something went wrong!"});
     }
 });
