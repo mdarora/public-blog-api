@@ -57,7 +57,11 @@ router.post("/login",  logoutAuth, async (req, res) => {
         const token = jwt.sign({id: findByUsername[0]._id, username: findByUsername[0].username, name: findByUsername[0].name}, process.env.SECRET_KEY);
 
         res.cookie("token", token);
-        return res.json({message: "User loggedin."});
+        return res.json({message: "User loggedin.", loggedUser:  {
+            id: findByUsername[0]._id,
+            username: findByUsername[0].username,
+            name: findByUsername[0].name
+        }});
 
     } catch (error) {
         console.log("Catched on login: ", error);
