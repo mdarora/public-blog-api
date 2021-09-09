@@ -94,9 +94,9 @@ router.get("/my-posts", loginAuth, async (req, res)=>{
     }
 });
 
-router.delete("/delete/:slug", loginAuth, async (req, res)=>{
+router.delete("/delete/:id", loginAuth, async (req, res)=>{
     try{
-        const post = await Post.findOne({slug: req.params.slug});
+        const post = await Post.findOne({_id: req.params.id});
         if (!post){
             return res.json({error: "Invalid request."});
         } else if (post.postedBy.id !== req.id){
