@@ -94,4 +94,24 @@ router.get("/my-posts", loginAuth, async (req, res)=>{
     }
 });
 
+router.delete("/delete/:slug", loginAuth, async (req, res)=>{
+    try{
+        const post = await Post.findOne({slug: req.params.slug});
+        if (!post){
+            return res.json({error: "Invalid request."});
+        } else if (post.postedBy.id !== req.id){
+            return res.json({error: "You can delete your own posts only!"});
+        }
+        
+        await post.delete();
+        return res.json({message: "Post deleted."});
+
+    } catch (error) {
+        console.log("Catched on delete/:slug route : ", error);
+        return res.json({error: "Something went wrong!"});
+    }
+});
+
+
+
 module.exports = router;
