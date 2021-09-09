@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const logoutAuth = require('../middleware/logoutAuth');
+const loginAuth = require("../middleware/loginAuth");
 const User = require('../db/models/user');
 
 router.post("/register", logoutAuth, async (req, res)=>{
@@ -67,6 +68,11 @@ router.post("/login",  logoutAuth, async (req, res) => {
         console.log("Catched on login: ", error);
         return res.json({error: "Something went wrong!"});
     }
+});
+
+router.get("/login", loginAuth, (req, res)=> {
+    const {id, name, username} = req;
+    res.json({id, name, username});
 });
 
 router.get("/logout", (req, res) => {

@@ -54,7 +54,6 @@ router.get("/post/:slug", async (req, res) => {
         if (!post){
             return res.json({error: "Invalid request."});
         }
-        console.log(post);
 
         return res.json({post});
         
