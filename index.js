@@ -9,8 +9,10 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 app.use(require('cookie-parser')());
+
 app.use("/api", require('./routes/auth'));
 app.use("/api", require('./routes/posts'));
+app.use("/api", require('./routes/comments'));
 
 
 require("./db/dbConfig");
