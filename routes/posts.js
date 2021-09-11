@@ -37,7 +37,7 @@ router.post("/add-post", loginAuth, async (req, res) => {
 
 router.get("/posts", async (req, res)=>{
     try {
-        const posts = await Post.find({}).sort({updatedAt: -1}).limit(10);
+        const posts = await Post.find({}).sort({updatedAt: -1}).limit(100);
         if(posts.length === 0){
             return res.json({error: "No post found!"});
         }
