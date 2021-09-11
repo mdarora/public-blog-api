@@ -22,7 +22,7 @@ router.post("/add-comment", loginAuth, async (req, res) => {
 
         await newComment.save();
 
-        res.json({message: "commented.", newComment});
+        res.json({message: "Comment added.", newComment});
         
     } catch (error) {
         console.log("Catched on add-comment route : ",error);
