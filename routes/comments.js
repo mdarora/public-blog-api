@@ -30,7 +30,7 @@ router.post("/add-comment", loginAuth, async (req, res) => {
     }
 });
 
-router.get("/comments/:postId", loginAuth, async (req, res) => {
+router.get("/comments/:postId", async (req, res) => {
     try {
         const comments  = await Comment.find({postId: req.params.postId}).sort({createdAt: -1});
         if(comments.length === 0){
