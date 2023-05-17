@@ -7,7 +7,9 @@ require('dotenv').config();
 app.get("/", (req, res) => {
     res.json({message: "home route of server"});
 });
-app.use(cors());
+app.use(cors({
+    origin: "https://public-blog.onrender.com"
+}));
 app.use(express.json());
 app.use(require('cookie-parser')());
 
