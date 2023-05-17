@@ -4,11 +4,15 @@ const app = express();
 
 require('dotenv').config();
 
+
+app.use((req, res, next) =>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+})
 app.get("/", (req, res) => {
     res.json({message: "home route of server"});
 });
 app.use(cors({
-    "Access-Control-Allow-Credentials": true,
     origin: "https://public-blog.onrender.com"
 }));
 app.use(express.json());
