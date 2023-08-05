@@ -18,7 +18,8 @@ app.get("/", (req, res) => {
 });
 
 app.use(cors({
-    origin: "https://public-blog.onrender.com"
+    origin: "https://public-blog.onrender.com",
+    Credentials: "true"
 }));
 app.use(express.json());
 app.use(require('cookie-parser')());
