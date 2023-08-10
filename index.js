@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 
 app.use(cors({
     origin: "https://public-blog.onrender.com",
-    credentials: ture
+    credentials: true
 }));
 app.use(express.json());
 app.use(require('cookie-parser')());
